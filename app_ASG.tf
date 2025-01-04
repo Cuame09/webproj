@@ -5,7 +5,7 @@
 resource "aws_launch_template" "app_template" {
   name          = "app_template"
   instance_type = "t2.micro"
-  image_id      = "ami-0c76bd4bd302b30ec"
+  image_id      = "ami-0c55b159cbfafe1f0"
   key_name                    = aws_key_pair.webprojkp.key_name
   user_data = base64encode(file("user_data.sh"))  
   network_interfaces {
@@ -35,19 +35,6 @@ resource "aws_autoscaling_group" "app_asg" {
     }
   }
 }
-
-# resource "aws_autoscaling_attachment" "lb-target-app" {
-#   autoscaling_group_name = aws_autoscaling_group.app_asg.id
-# }
-
-
-# resource "aws_lb_target_group_attachment" "lb-target-group" {
-#   target_group_arn = aws_lb_target_group.lb-target-app.arn
-#   target_id        = [aws_instance.app_Server1.id, aws_instance.app_Server2.id]
-#   port             = 80
-# }
-
-
 
 # Autoscaling Policies (Optional: For dynamic scaling)
 resource "aws_autoscaling_policy" "scale_out_policy_app" {
